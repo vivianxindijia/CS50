@@ -1,0 +1,11 @@
+sort1 uses: Bubble sort
+
+How do you know?: Bubble sort has the big omega runnig time n, so on a big file which is already sorted, bubble sort should be much faster than others.
+
+sort2 uses: Merge sort
+
+How do you know?: Merge sort has a big O running time of n log n; for large input, it will be significantly faster than n^2, which is the big O running time for selection and bubble sort. By timing the running time for random 10000.txt of sort 1,2,3 respectively, I found taht sort 2 has the fastest running time.
+
+sort3 uses: Selection sort
+
+How do you know?:Selection sort still need longer time than bubble sort in a large already sorted file, becuase it still need to go through each element in the array to check.
