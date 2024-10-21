@@ -1,0 +1,25 @@
+
+#name{
+    font-family: monospace;
+    font-size: 50px;
+    text-emphasis: underline;
+    color: olive;
+    opacity: 0.5;
+}
+
+.about {
+    font-family: "cursive";
+
+}
+
+h1{
+    color: purple;
+}
+
+li:hover{
+    color: blue;
+}
+
+h4.about{
+    color:orange;
+}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Exchange Rate Checker</title>
+    <!-- Include CSS and other head elements as needed -->
+</head>
+<body>
+    <h1>Exchange Rate Checker</h1>
+    <form id="exchangeRateForm">
+        <label for="currencyPair">Currency to USD Rate (e.g., EUR) - Majors Only:</label>
+        <input type="text" id="currencyPair" required>
+        <button type="submit">Get Exchange Rate</button>
+    </form>
+    <div id="exchangeRateResult"></div>
+
+    <!-- Back to Homepage button -->
+    <a href="index.html" class="btn btn-primary">Back to Homepage</a>
+
+    <!-- Include your JavaScript directly in the HTML -->
+    <script>
+        // Your script.js code goes here
+
+        const exchangeRateForm = document.getElementById('exchangeRateForm');
+        const currencyPairInput = document.getElementById('currencyPair');
+        const exchangeRateResult = document.getElementById('exchangeRateResult');
+        const apiKey = '6ec430efe5-76594741e4-s0mq50'; // Replace with your API key
+        const apiUrlBase = 'https://api.fastforex.io/fetch-one';
+
+        exchangeRateForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const currencyPair = currencyPairInput.value.trim().toUpperCase();
+            if (!currencyPair) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`${apiUrlBase}?from=${currencyPair}&to=USD&api_key=${apiKey}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    const rate = data.result.USD;
+                    exchangeRateResult.textContent = `Exchange Rate: 1 ${currencyPair} is ${rate} USD.`;
+                } else {
+                    exchangeRateResult.textContent = 'Error fetching exchange rate data.';
+                }
+            } catch (error) {
+                exchangeRateResult.textContent = 'An error occurred.';
+                console.error(error);
+            }
+        });
+    </script>
+</body>
+</html>

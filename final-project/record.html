@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="styles.css" rel="stylesheet">
+    <title>Record Trades</title>
+
+    <style>
+        .trade-table {
+            border-collapse: collapse; /* Merge borders between cells */
+            width: 100%; /* Make the table occupy the full width of its container */
+        }
+
+        .trade-table th,
+        .trade-table td {
+            border: 1px solid #000;
+            padding: 8px; /* Add some padding for better spacing */
+            min-width: 50px; /* Set a minimum width for the td cells (adjust as needed) */
+            text-align: center; /* Center-align cell content horizontally *
+        }
+
+
+
+        .existing-trades {
+            border-collapse: collapse; /* Merge borders between cells */
+            width: 100%; /* Make the table occupy the full width of its container */
+        }
+
+        .existing-trades th,
+        .existing-trades td {
+            border: 1px solid #000;
+            padding: 8px; /* Add some padding for better spacing */
+            min-width: 50px; /* Set a minimum width for the td cells (adjust as needed) */
+            text-align: center; /* Center-align cell content horizontally */
+        }
+    </style>
+
+
+</head>
+<body>
+    <h1>Record Trades</h1>
+
+
+    <table class="trade-table">
+        <thead>
+            <tr>
+                <th>Symbol</th>
+                <th>Type</th>
+                <th>Lot Size</th>
+                <th>TP</th>
+                <th>SL</th>
+                <th>Profit</th>
+                <th>Pips</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><div class="field-container"><input type="text" name="symbol"></div></td>
+                <td><div class="field-container"><select name="type"><option value="buy">Buy</option><option value="sell">Sell</option></select></div></td>
+                <td><div class="field-container"><input type="number" name="lot-size"></div></td>
+                <td><div class="field-container"><input type="number" name="tp"></div></td>
+                <td><div class="field-container"><input type="number" name="sl"></div></td>
+                <td><div class="field-container"><input type="number" name="profit"></div></td>
+                <td><div class="field-container"><input type="number" name="pips"></div></td>
+            </tr>
+        </tbody>
+    </table>
+
+
+
+
+
+    <button id="add-trade">Add Trade</button>
+</br></br></br>
+    <div id="trades-container">
+        <table class="existing-trades">
+            <thead>
+                <tr>
+                    <th>Symbol</th>
+                    <th>Type</th>
+                    <th>Lot Size</th>
+                    <th>TP</th>
+                    <th>SL</th>
+                    <th>Profit</th>
+                    <th>Pips</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Existing data rows will be added dynamically here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load existing data from Local Storage (if available)
+            const existingData = JSON.parse(localStorage.getItem('existingTrades')) || [];
+
+            // Populate the existing trades table with saved data
+            const tradesTable = document.querySelector('.existing-trades tbody');
+            existingData.forEach(tradeData => {
+                const tradeRow = document.createElement('tr');
+                tradeRow.innerHTML = `
+                    <td>${tradeData.symbol}</td>
+                    <td>${tradeData.type}</td>
+                    <td>${tradeData.lotSize}</td>
+                    <td>${tradeData.tp}</td>
+                    <td>${tradeData.sl}</td>
+                    <td>${tradeData.profit}</td>
+                    <td>${tradeData.pips}</td>
+                `;
+                tradesTable.appendChild(tradeRow);
+            });
+
+            // Add Trade button click event
+            document.getElementById('add-trade').addEventListener('click', function() {
+                // Get data from fields
+                const tradeData = {
+                    symbol: document.querySelector('input[name="symbol"]').value,
+                    type: document.querySelector('select[name="type"]').value,
+                    lotSize: document.querySelector('input[name="lot-size"]').value,
+                    tp: document.querySelector('input[name="tp"]').value,
+                    sl: document.querySelector('input[name="sl"]').value,
+                    profit: document.querySelector('input[name="profit"]').value,
+                    pips: document.querySelector('input[name="pips"]').value
+                };
+
+                // Handle image upload (assuming you have an input element with id="imageInput")
+                // const imageInput = document.getElementById('imageInput');
+                // const imageFileName = imageInput.files[0] ? imageInput.files[0].name : '';
+                // // Save the image to data/images directory
+                // You should handle the image upload server-side and save the relative path in the CSV
+                // For demonstration purposes, we'll just save the filename here.
+                //tradeData.image = imageFileName;
+
+                // Save data to Local Storage and add to the existing trades table
+                existingData.push(tradeData);
+                localStorage.setItem('existingTrades', JSON.stringify(existingData));
+
+                // Add a new row to the existing trades table
+                const tradeRow = document.createElement('tr');
+                tradeRow.innerHTML = `
+                    <td>${tradeData.symbol}</td>
+                    <td>${tradeData.type}</td>
+                    <td>${tradeData.lotSize}</td>
+                    <td>${tradeData.tp}</td>
+                    <td>${tradeData.sl}</td>
+                    <td>${tradeData.profit}</td>
+                    <td>${tradeData.pips}</td>
+                `;
+                tradesTable.appendChild(tradeRow);
+
+                // Clear the fields for the next entry
+                document.querySelector('input[name="symbol"]').value = '';
+                document.querySelector('input[name="lot-size"]').value = '';
+                document.querySelector('input[name="tp"]').value = '';
+                document.querySelector('input[name="sl"]').value = '';
+                document.querySelector('input[name="profit"]').value = '';
+                document.querySelector('input[name="pips"]').value = '';
+
+                alert('Trade added and data saved!');
+            });
+        });
+    </script>
+
+
+
+
+<button id="clear-local-storage">Clear Local Storage</button>
+
+<script>
+    document.getElementById('clear-local-storage').addEventListener('click', function() {
+        localStorage.clear();
+        alert('Local Storage cleared.');
+    });
+</script>
+
+</body>
+</html>
+
+<a href="index.html">
+    <button>Go Back to Homepage</button>
+</a>

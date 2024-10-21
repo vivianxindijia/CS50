@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UFT-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="styles.css" rel="stylesheet">
+    <title>Record Trades</title>
+
+
+    <style>
+        .field-container {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <h1>Record Trades</h1>
+
+    <table class="trade-table">
+        <tbody>
+            <tr>
+                <td>
+                    <div class="field-container">Symbol</div>
+                    <div class="field-container"><input type="text" name="symbol"></div>
+                </td>
+                <td>
+                    <div class="field-container">Type</div>
+                    <div class="field-container">
+                        <select name="type">
+                            <option value="buy">Buy</option>
+                            <option value="sell">Sell</option>
+                        </select>
+                    </div>
+                </td>
+                <td>
+                    <div class="field-container">Lot Size</div>
+                    <div class="field-container"><input type="number" name="lot-size"></div>
+                </td>
+                <td>
+                    <div class="field-container">TP</div>
+                    <div class="field-container"><input type="number" name="tp"></div>
+                </td>
+                <td>
+                    <div class="field-container">SL</div>
+                    <div class="field-container"><input type="number" name="sl"></div>
+                </td>
+                <td>
+                    <div class="field-container">Profit</div>
+                    <div class="field-container"><input type="number" name="profit"></div>
+                </td>
+                <td>
+                    <div class="field-container">Pips</div>
+                    <div class="field-container"><input type="number" name="pips"></div>
+                </td>
+                <td>
+                    <div class="field-container">Image</div>
+                    <div class="field-container"><input type="file" name="image"></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+
+
+
+
+    <button id="add-trade">Add Trade</button>
+
+    <script src="script.js"></script>
+</body>
+</html>
